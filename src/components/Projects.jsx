@@ -24,8 +24,8 @@ const Projects = () => {
       description: 'A personal finance application that helps users track their expenses, set budgets, and visualize spending patterns.',
       technologies: ['JavaScript', 'Chart.js', 'OpenWeather API', 'CSS Grid'],
       image: 'https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=600',
-      liveUrl: '#',
-      githubUrl: '#'
+      liveUrl: 'https://github.com/darkfateak07/expense-tracker',
+      githubUrl: 'https://github.com/darkfateak07/expense-tracker'
     },
     {
       title: 'Smart Travel Planner',

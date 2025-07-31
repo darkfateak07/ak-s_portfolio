@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ChevronDown, Github, Linkedin, Mail, Download, Eye } from 'lucide-react';
+import mypic from '../assets/mypic.jpg';
 
 const Hero = () => {
   const [currentText, setCurrentText] = useState('');
@@ -59,7 +60,7 @@ const Hero = () => {
           <div className="w-40 h-40 mx-auto rounded-full bg-gradient-to-r from-red-500 to-red-700 p-2 animate-pulse">
             <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center text-5xl font-bold text-red-500 overflow-hidden">
               <img 
-                src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400" 
+                src={mypic} 
                 alt="Profile" 
                 className="w-full h-full object-cover rounded-full"
               />
