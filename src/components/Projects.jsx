@@ -6,32 +6,32 @@ const Projects = () => {
     {
       title: 'News Aggregator',
       description: 'A web application that aggregates news from various sources, allowing users to filter by categories and save their favorite articles and can know the credibility.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-      image: 'https://images.pexels.com/photos/34577/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600',
+      technologies: ['HTML', 'Node.js', 'MongoDB', 'CSS','Bootstrap', 'News API'],
+      image: './public/news.png',
       liveUrl: '#',
       githubUrl: '#'
     },
     {
       title: 'Resume parser',
       description: 'A tool that extracts key information from resumes and generates a structured format for easy review and analysis.',
-      technologies: ['Vue.js', 'Firebase', 'Vuetify', 'WebSocket'],
-      image: 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=600',
+      technologies: ['Node.js', 'React', 'JavaScript', 'MongoDB'],
+      image: './public/resume.png',
       liveUrl: '#',
       githubUrl: '#'
     },
     {
-      title: 'Expense Tracker',
-      description: 'A personal finance application that helps users track their expenses, set budgets, and visualize spending patterns.',
-      technologies: ['JavaScript', 'Chart.js', 'OpenWeather API', 'CSS Grid'],
-      image: 'https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=600',
-      liveUrl: 'https://github.com/darkfateak07/expense-tracker',
-      githubUrl: 'https://github.com/darkfateak07/expense-tracker'
+      title: 'Retail Demand Forecaster',
+      description: 'An AI-driven application that predicts product demand for retail businesses using historical sales data and market trends.',
+      technologies: ['React js', 'Python', 'ML', 'Tailwind CSS','Prophet'],
+      image: './public/retail.png',
+      liveUrl: 'https://github.com/darkfateak07/Retail-demad-forecaster',
+      githubUrl: 'https://github.com/darkfateak07/Retail-demad-forecaster'
     },
     {
       title: 'Smart Travel Planner',
       description: 'An AI-powered travel planner that suggests personalized itineraries based on user preferences, budget, and travel history.',
-      technologies: ['React Native', 'GraphQL', 'Apollo', 'PostgreSQL'],
-      image: 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=600',
+      technologies: ['HTML', 'CSS', 'Bootstrap', 'JavaScript','API Integration'],
+      image: './public/travel.png',
       liveUrl: '#',
       githubUrl: '#'
     }

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle, X, AlertCircle } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +9,8 @@ const Contact = () => {
     subject: '',
     message: ''
   });
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupType, setPopupType] = useState('success'); // 'success' or 'error'
 
   const formRef = useRef();
 
@@ -41,12 +43,16 @@ const Contact = () => {
       .then(
         (result) => {
           console.log('✅ Message sent:', result.text);
-          alert('Message sent successfully!');
+          setPopupType('success');
+          setShowPopup(true);
           setFormData({ name: '', email: '', subject: '', message: '' });
+          setTimeout(() => setShowPopup(false), 5000);
         },
         (error) => {
           console.error('❌ Error:', error.text);
-          alert('Something went wrong. Try again later.');
+          setPopupType('error');
+          setShowPopup(true);
+          setTimeout(() => setShowPopup(false), 5000);
         }
       );
   };
@@ -73,7 +79,63 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="relative py-20 px-6 bg-gray-900/20">
+    <section id="contact" className="relative py-20 px-6">
+      {/* Success/Error Popup */}
+      {showPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
+          <div className={`relative max-w-md w-full bg-gradient-to-br ${
+            popupType === 'success' 
+              ? 'from-gray-900 to-gray-800 border-green-500' 
+              : 'from-gray-900 to-gray-800 border-red-500'
+          } border-2 rounded-2xl p-8 shadow-2xl transform transition-all duration-300 animate-scaleIn`}>
+            {/* Close Button */}
+            <button
+              onClick={() => setShowPopup(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Icon */}
+            <div className="flex justify-center mb-6">
+              {popupType === 'success' ? (
+                <div className="bg-green-500/10 rounded-full p-4">
+                  <CheckCircle className="w-16 h-16 text-green-500" />
+                </div>
+              ) : (
+                <div className="bg-red-500/10 rounded-full p-4">
+                  <AlertCircle className="w-16 h-16 text-red-500" />
+                </div>
+              )}
+            </div>
+
+            {/* Message */}
+            <div className="text-center">
+              <h3 className={`text-2xl font-bold mb-3 ${
+                popupType === 'success' ? 'text-green-500' : 'text-red-500'
+              }`}>
+                {popupType === 'success' ? 'Mail Sent Successfully!' : 'Oops! Something Went Wrong'}
+              </h3>
+              <p className="text-gray-300 text-lg mb-6">
+                {popupType === 'success' 
+                  ? 'Thank you for reaching out! You will get a response sooner.' 
+                  : 'Failed to send message. Please try again later.'}
+              </p>
+              <button
+                onClick={() => setShowPopup(false)}
+                className={`px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 ${
+                  popupType === 'success'
+                    ? 'bg-green-500 hover:bg-green-600 text-white'
+                    : 'bg-red-500 hover:bg-red-600 text-white'
+                }`}
+              >
+                Got it!
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">

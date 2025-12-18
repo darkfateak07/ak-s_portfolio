@@ -50,7 +50,7 @@ const About = () => {
             <div className="relative">
               <div className="w-64 h-64 mx-auto md:mx-0 rounded-lg bg-gradient-to-r from-red-500 to-red-700 p-1 animate-pulse mb-6">
                 <img 
-                  src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                  src="./public/me.png" 
                   alt="About Me" 
                   className="w-full h-full object-cover rounded-lg"
                 />
@@ -67,7 +67,7 @@ Whether it's automating ideas or launching fresh startup concepts, I’m all abo
               to open-source projects, or sharing my knowledge with the developer community.
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
-              {['React','HTML and CSS', 'Node.js', 'Python', 'AWS', 'Docker','MONGODB'].map((tech) => (
+              {['React','HTML and CSS', 'Node.js', 'Python', 'AWS','MONGODB','Figma','Canva'].map((tech) => (
                 <span
                   key={tech}
                   className="px-4 py-2 bg-red-500/10 border border-red-500/20 rounded-full text-red-400 text-sm font-medium hover:bg-red-500/20 transition-colors duration-300"

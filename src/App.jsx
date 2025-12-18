@@ -8,6 +8,8 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import LeetCode from './components/LeetCode';
+import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AnimatedBackground from './components/AnimatedBackground';
@@ -36,9 +38,15 @@ function App() {
         <Projects />
       </ScrollAnimationWrapper>
       <ScrollAnimationWrapper direction="right" delay={500}>
+        <LeetCode />
+      </ScrollAnimationWrapper>
+      <ScrollAnimationWrapper direction="left" delay={600}>
+        <Certifications />
+      </ScrollAnimationWrapper>
+      <ScrollAnimationWrapper direction="up" delay={700}>
         <Contact />
       </ScrollAnimationWrapper>
-      <ScrollAnimationWrapper direction="up" delay={600}>
+      <ScrollAnimationWrapper direction="up" delay={800}>
         <Footer />
       </ScrollAnimationWrapper>
     </div>

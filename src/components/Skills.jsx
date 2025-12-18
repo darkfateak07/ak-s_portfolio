@@ -14,9 +14,9 @@ const Skills = () => {
     {
       category: 'Backend',
       skills: [
-        { name: 'Node.js', level: 88 },
+        { name: 'Node.js', level: 80 },
         { name: 'Python', level: 85 },
-        { name: 'Express', level: 82 },
+        { name: 'Express', level: 80 },
         { name: 'MongoDB', level: 80 }
       ]
     },
@@ -24,15 +24,18 @@ const Skills = () => {
       category: 'Tools & Others',
       skills: [
         { name: 'Git/GitHub', level: 95 },
-        { name: 'Docker', level: 75 },
         { name: 'AWS', level: 70 },
-        { name: 'Figma', level: 88 }
+        { name: 'Figma', level: 88 },
+        { name: 'Canva', level: 90 },
+        { name: 'Figma', level: 80},
+        { name: 'Postman', level: 85}
+        
       ]
     }
   ];
 
   return (
-    <section id="skills" className="relative py-20 px-6 bg-gray-900/20">
+    <section id="skills" className="relative py-20 px-6">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
