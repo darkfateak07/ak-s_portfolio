@@ -50,7 +50,7 @@ const About = () => {
             <div className="relative">
               <div className="w-64 h-64 mx-auto md:mx-0 rounded-lg bg-gradient-to-r from-red-500 to-red-700 p-1 animate-pulse mb-6">
                 <img 
-                  src="./public/me.png" 
+                  src="/me.png" 
                   alt="About Me" 
                   className="w-full h-full object-cover rounded-lg"
                 />
