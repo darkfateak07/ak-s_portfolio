@@ -7,7 +7,7 @@ const Projects = () => {
       title: 'News Aggregator',
       description: 'A web application that aggregates news from various sources, allowing users to filter by categories and save their favorite articles and can know the credibility.',
       technologies: ['HTML', 'Node.js', 'MongoDB', 'CSS','Bootstrap', 'News API'],
-      image: './public/news.png',
+      image: '/news.png',
       liveUrl: '#',
       githubUrl: '#'
     },
@@ -15,7 +15,7 @@ const Projects = () => {
       title: 'Resume parser',
       description: 'A tool that extracts key information from resumes and generates a structured format for easy review and analysis.',
       technologies: ['Node.js', 'React', 'JavaScript', 'MongoDB'],
-      image: './public/resume.png',
+      image: '/resume.png',
       liveUrl: '#',
       githubUrl: '#'
     },
@@ -23,7 +23,7 @@ const Projects = () => {
       title: 'Retail Demand Forecaster',
       description: 'An AI-driven application that predicts product demand for retail businesses using historical sales data and market trends.',
       technologies: ['React js', 'Python', 'ML', 'Tailwind CSS','Prophet'],
-      image: './public/retail.png',
+      image: '/retail.png',
       liveUrl: 'https://github.com/darkfateak07/Retail-demad-forecaster',
       githubUrl: 'https://github.com/darkfateak07/Retail-demad-forecaster'
     },
@@ -31,7 +31,7 @@ const Projects = () => {
       title: 'Smart Travel Planner',
       description: 'An AI-powered travel planner that suggests personalized itineraries based on user preferences, budget, and travel history.',
       technologies: ['HTML', 'CSS', 'Bootstrap', 'JavaScript','API Integration'],
-      image: './public/travel.png',
+      image: '/travel.png',
       liveUrl: '#',
       githubUrl: '#'
     }
