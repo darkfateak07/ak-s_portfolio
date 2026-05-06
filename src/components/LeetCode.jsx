@@ -6,16 +6,60 @@ const LeetCode = () => {
   const [loading, setLoading] = useState(true);
   const username = 'Abhinav_K07';
 
+  const normalizeLeetCodeStats = (data) => {
+    const toNumberOrNull = (value) => {
+      if (value === null || value === undefined) return null;
+      const numeric = typeof value === 'number' ? value : Number(value);
+      return Number.isFinite(numeric) ? numeric : null;
+    };
+
+    const getAllDifficultySubmissions = (list) => {
+      if (!Array.isArray(list)) return null;
+      return list.find((item) => item?.difficulty === 'All') ?? list[0] ?? null;
+    };
+
+    const acceptedAll = getAllDifficultySubmissions(data?.matchedUserStats?.acSubmissionNum);
+    const totalAll = getAllDifficultySubmissions(data?.matchedUserStats?.totalSubmissionNum);
+    const acceptedSubmissions = toNumberOrNull(acceptedAll?.submissions);
+    const totalSubmissions = toNumberOrNull(totalAll?.submissions);
+    const acceptanceRate =
+      acceptedSubmissions !== null && totalSubmissions !== null && totalSubmissions > 0
+        ? Number(((acceptedSubmissions / totalSubmissions) * 100).toFixed(1))
+        : null;
+
+    return {
+      totalSolved: toNumberOrNull(data?.totalSolved) ?? 0,
+      easySolved: toNumberOrNull(data?.easySolved) ?? 0,
+      mediumSolved: toNumberOrNull(data?.mediumSolved) ?? 0,
+      hardSolved: toNumberOrNull(data?.hardSolved) ?? 0,
+      totalEasy: toNumberOrNull(data?.totalEasy) ?? 826,
+      totalMedium: toNumberOrNull(data?.totalMedium) ?? 1725,
+      totalHard: toNumberOrNull(data?.totalHard) ?? 744,
+      ranking: toNumberOrNull(data?.ranking),
+      acceptanceRate,
+      contributionPoints:
+        toNumberOrNull(data?.contributionPoints) ??
+        toNumberOrNull(data?.contributionPoint) ??
+        0
+    };
+  };
+
   useEffect(() => {
     fetchLeetCodeStats();
   }, []);
 
   const fetchLeetCodeStats = async () => {
+    setLoading(true);
     try {
-      const response = await fetch(`https://leetcode-stats-api.herokuapp.com/${username}`);
+      const response = await fetch(`https://leetcode-api-faisalshohag.vercel.app/${username}`, {
+        cache: 'no-store'
+      });
+      if (!response.ok) {
+        throw new Error(`Stats API request failed: ${response.status}`);
+      }
+
       const data = await response.json();
-      setStats(data);
-      setLoading(false);
+      setStats(normalizeLeetCodeStats(data));
     } catch (error) {
       console.error('Error fetching LeetCode stats:', error);
       // Fallback to static data if API fails
@@ -24,9 +68,14 @@ const LeetCode = () => {
         easySolved: 0,
         mediumSolved: 0,
         hardSolved: 0,
-        ranking: 0,
-        acceptanceRate: 0
+        totalEasy: 826,
+        totalMedium: 1725,
+        totalHard: 744,
+        ranking: null,
+        acceptanceRate: null,
+        contributionPoints: 0
       });
+    } finally {
       setLoading(false);
     }
   };
@@ -95,25 +144,25 @@ const LeetCode = () => {
           <StatCard
             icon={Code2}
             label="Total Solved"
-            value={stats?.totalSolved || 0}
+            value={stats?.totalSolved ?? 0}
             color="text-red-500"
           />
           <StatCard
             icon={Trophy}
             label="Global Ranking"
-            value={stats?.ranking || 'N/A'}
+            value={stats?.ranking ?? '—'}
             color="text-yellow-500"
           />
           <StatCard
             icon={Calendar}
             label="Acceptance Rate"
-            value={`${stats?.acceptanceRate || 0}%`}
+            value={stats?.acceptanceRate === null ? '—' : `${stats.acceptanceRate}%`}
             color="text-green-500"
           />
           <StatCard
             icon={TrendingUp}
             label="Contribution Points"
-            value={stats?.contributionPoints || 0}
+            value={stats?.contributionPoints ?? 0}
             color="text-blue-500"
           />
         </div>
@@ -125,20 +174,20 @@ const LeetCode = () => {
           <div className="max-w-3xl mx-auto">
             <ProgressBar
               label="Easy Problems"
-              solved={stats?.easySolved || 0}
-              total={stats?.totalEasy || 826}
+              solved={stats?.easySolved ?? 0}
+              total={stats?.totalEasy ?? 826}
               color="bg-green-500"
             />
             <ProgressBar
               label="Medium Problems"
-              solved={stats?.mediumSolved || 0}
-              total={stats?.totalMedium || 1725}
+              solved={stats?.mediumSolved ?? 0}
+              total={stats?.totalMedium ?? 1725}
               color="bg-yellow-500"
             />
             <ProgressBar
               label="Hard Problems"
-              solved={stats?.hardSolved || 0}
-              total={stats?.totalHard || 744}
+              solved={stats?.hardSolved ?? 0}
+              total={stats?.totalHard ?? 744}
               color="bg-red-500"
             />
           </div>
