@@ -1,7 +1,10 @@
-import React from 'react';
-import { ExternalLink, Github } from 'lucide-react';
+import React, { useState } from 'react';
+import { ExternalLink, Github, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 
 const Projects = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [activeCategory, setActiveCategory] = useState('all');
+
   const projects = [
     {
       title: 'News Aggregator',
@@ -9,15 +12,17 @@ const Projects = () => {
       technologies: ['HTML', 'Node.js', 'MongoDB', 'CSS','Bootstrap', 'News API'],
       image: '/news.png',
       liveUrl: '#',
-      githubUrl: '#'
+      githubUrl: '#',
+      category: 'fullstack',
     },
     {
-      title: 'Resume parser',
+      title: 'Resume Parser',
       description: 'A tool that extracts key information from resumes and generates a structured format for easy review and analysis.',
       technologies: ['Node.js', 'React', 'JavaScript', 'MongoDB'],
       image: '/resume.png',
       liveUrl: '#',
-      githubUrl: '#'
+      githubUrl: '#',
+      category: 'fullstack',
     },
     {
       title: 'Retail Demand Forecaster',
@@ -25,7 +30,8 @@ const Projects = () => {
       technologies: ['React js', 'Python', 'ML', 'Tailwind CSS','Prophet'],
       image: '/retail.png',
       liveUrl: 'https://github.com/darkfateak07/Retail-demad-forecaster',
-      githubUrl: 'https://github.com/darkfateak07/Retail-demad-forecaster'
+      githubUrl: 'https://github.com/darkfateak07/Retail-demad-forecaster',
+      category: 'ai-ml',
     },
     {
       title: 'Smart Travel Planner',
@@ -33,76 +39,220 @@ const Projects = () => {
       technologies: ['HTML', 'CSS', 'Bootstrap', 'JavaScript','API Integration'],
       image: '/travel.png',
       liveUrl: '#',
-      githubUrl: '#'
+      githubUrl: '#',
+      category: 'ai-ml',
     }
   ];
+
+  const filteredProjects = activeCategory === 'all' 
+    ? projects 
+    : projects.filter(p => p.category === activeCategory);
+
+  const currentProject = filteredProjects[currentIndex];
+
+  const nextProject = () => {
+    setCurrentIndex((prev) => (prev + 1) % filteredProjects.length);
+  };
+
+  const prevProject = () => {
+    setCurrentIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
+  };
+
+  const handleCategoryChange = (category) => {
+    setActiveCategory(category);
+    setCurrentIndex(0);
+  };
 
   return (
     <section id="projects" className="relative py-20 px-6">
       <div className="container mx-auto max-w-6xl">
+        
+        {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            My <span className="text-red-500">Projects</span>
+          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/30">
+            <Sparkles className="w-4 h-4 text-red-500" />
+            <span className="text-sm text-red-400 font-semibold">My Work</span>
+          </div>
+          
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-orange-500 to-yellow-400">
+            Featured <span className="block">Projects</span>
           </h2>
-          <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
+          
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Here are some of the projects I've worked on recently
+            Swipe through my latest work and explore innovative solutions
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="group bg-gray-900/50 backdrop-blur-sm rounded-lg overflow-hidden border border-gray-800 hover:border-red-500/30 transition-all duration-300 transform hover:scale-105 animate-float"
-              style={{ animationDelay: `${index * 0.2}s` }}
+        {/* Filter buttons */}
+        <div className="flex justify-center gap-3 mb-12">
+          {['all', 'fullstack', 'ai-ml'].map((cat) => (
+            <button
+              key={cat}
+              onClick={() => handleCategoryChange(cat)}
+              className={`px-6 py-2 rounded-full font-semibold text-sm transition-all duration-300 ${
+                activeCategory === cat
+                  ? 'bg-gradient-to-r from-red-500 to-orange-500 text-white'
+                  : 'bg-gray-800 text-gray-300 border border-gray-700'
+              }`}
             >
-              <div className="relative overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-red-500/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
-                </div>
+              {cat === 'ai-ml' ? 'AI & ML' : cat.charAt(0).toUpperCase() + cat.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        {/* Main carousel section */}
+        <div className="relative">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+            
+            {/* Left side - Project details */}
+            <div className="lg:col-span-2 space-y-6">
+              <div className="space-y-3">
+                <h3 className="text-5xl font-bold text-white">{currentProject.title}</h3>
+                <div className="w-16 h-1 bg-gradient-to-r from-red-500 to-orange-500 rounded-full"></div>
               </div>
-              
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-3">{project.title}</h3>
-                <p className="text-gray-400 mb-4 leading-relaxed">{project.description}</p>
-                
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech, techIndex) => (
+
+              <p className="text-lg text-gray-400 leading-relaxed">
+                {currentProject.description}
+              </p>
+
+              {/* Technologies */}
+              <div className="space-y-3">
+                <h4 className="text-sm font-bold text-gray-300 uppercase tracking-wider">Technologies Used</h4>
+                <div className="flex flex-wrap gap-2">
+                  {currentProject.technologies.map((tech, idx) => (
                     <span
-                      key={techIndex}
-                      className="px-3 py-1 bg-red-500/10 border border-red-500/20 rounded-full text-red-400 text-xs font-medium"
+                      key={idx}
+                      className="px-4 py-2 rounded-full bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/40 text-red-300 text-sm font-medium"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
+              </div>
+
+              {/* Action buttons */}
+              <div className="flex gap-4 pt-4">
+                <a
+                  href={currentProject.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold rounded-lg"
+                >
+                  <ExternalLink className="w-5 h-5" />
+                  Live Demo
+                </a>
+                <a
+                  href={currentProject.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-2 px-6 py-3 bg-gray-800 border-2 border-gray-700 text-white font-bold rounded-lg"
+                >
+                  <Github className="w-5 h-5" />
+                  View Code
+                </a>
+              </div>
+
+              {/* Project counter and navigation */}
+              <div className="flex items-center justify-between pt-8 border-t border-gray-800">
+                <span className="text-sm text-gray-500">
+                  {currentIndex + 1} of {filteredProjects.length}
+                </span>
                 
-                <div className="flex space-x-4">
-                  <a
-                    href={project.liveUrl}
-                    className="flex items-center space-x-2 text-red-400 hover:text-red-300 transition-colors duration-300"
+                <div className="flex gap-3">
+                  <button
+                    onClick={prevProject}
+                    className="p-2 rounded-lg bg-gray-800 text-gray-300"
                   >
-                    <ExternalLink size={16} />
-                    <span>Live Demo</span>
-                  </a>
-                  <a
-                    href={project.githubUrl}
-                    className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors duration-300"
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+                  <button
+                    onClick={nextProject}
+                    className="p-2 rounded-lg bg-gray-800 text-gray-300"
                   >
-                    <Github size={16} />
-                    <span>Code</span>
-                  </a>
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
                 </div>
               </div>
             </div>
-          ))}
+
+            {/* Right side - Project image carousel */}
+            <div className="relative h-96 lg:h-full">
+              {/* Main image */}
+              <div className="relative h-full rounded-2xl overflow-hidden border-2 border-gray-700">
+                <img
+                  src={currentProject.image}
+                  alt={currentProject.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/20 to-transparent opacity-80" />
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <p className="text-sm font-semibold text-red-400 mb-2">Featured Project</p>
+                  <h4 className="text-2xl font-bold text-white">{currentProject.title}</h4>
+                  <p className="text-gray-300 text-sm mt-2 line-clamp-2">{currentProject.description}</p>
+                </div>
+              </div>
+
+              {/* Image indicators */}
+              <div className="absolute -bottom-12 left-0 right-0 flex justify-center gap-2">
+                {filteredProjects.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentIndex(idx)}
+                    className={`h-3 rounded-full transition-all duration-300 ${
+                      idx === currentIndex
+                        ? 'w-8 bg-gradient-to-r from-red-500 to-orange-500'
+                        : 'w-3 bg-gray-700'
+                    }`}
+                  />
+                ))}
+              </div>
+
+              {/* Side decorative blocks - other project previews */}
+              <div className="absolute -right-4 top-0 w-24 h-24 rounded-lg overflow-hidden border border-gray-700 opacity-40 hidden lg:block">
+                <img
+                  src={filteredProjects[(currentIndex + 1) % filteredProjects.length].image}
+                  alt="next"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -left-4 bottom-0 w-24 h-24 rounded-lg overflow-hidden border border-gray-700 opacity-40 hidden lg:block">
+                <img
+                  src={filteredProjects[(currentIndex - 1 + filteredProjects.length) % filteredProjects.length].image}
+                  alt="prev"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* All projects grid view at bottom */}
+        <div className="mt-24 pt-12 border-t border-gray-800">
+          <h3 className="text-2xl font-bold text-white mb-8">All Projects</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {projects.map((project, idx) => (
+              <div
+                key={idx}
+                onClick={() => {
+                  setActiveCategory(project.category);
+                  setCurrentIndex(projects.filter(p => p.category === project.category).indexOf(project));
+                }}
+                className="group relative h-40 rounded-lg overflow-hidden cursor-pointer"
+              >
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/30 to-transparent opacity-90 flex items-end p-4">
+                  <div>
+                    <h4 className="text-white font-bold text-sm line-clamp-1">{project.title}</h4>
+                    <p className="text-gray-300 text-xs mt-1">{project.category === 'ai-ml' ? 'AI & ML' : 'Full Stack'}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
