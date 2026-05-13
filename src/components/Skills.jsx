@@ -77,7 +77,7 @@ const Skills = () => {
           </div>
           
           <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-orange-500 to-yellow-400">
-            My <span className="block">Skills</span>
+            My Skills
           </h2>
           
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
